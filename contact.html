@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - Numerical Integration Solver</title>
+  <meta name="description" content="Reach out to the Numerical Integration platform developers, send feedback, or submit mathematical questions.">
+  <!-- CSS Stylesheets -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-calculator" viewBox="0 0 16 16">
+          <path d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z"/>
+          <path d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm.5.5v1h7v-1h-7zm0 3.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z"/>
+        </svg>
+        <span>Numerical Integration</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="trapezoidal.html">Trapezoidal Rule</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="simpson13.html">Simpson's 1/3</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="simpson38.html">Simpson's 3/8</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="contact.html">Contact</a>
+          </li>
+          <li class="nav-item ms-lg-2">
+            <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle dark mode">
+              <i class="bi bi-moon-fill"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Banner -->
+  <header class="hero-section">
+    <div class="container text-center" data-aos="fade-down">
+      <h1 class="hero-title mb-2">Contact Us</h1>
+      <p class="hero-subtitle mb-0">Have suggestions, bug reports, or math questions? Send us a message.</p>
+    </div>
+    <div class="custom-shape-divider-bottom no-print">
+      <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V0C26.9,8.75,55.05,16.27,84.34,22.38C154.2,37,251.8,69.2,321.39,56.44Z" class="shape-fill"></path>
+      </svg>
+    </div>
+  </header>
+
+  <!-- Main Section -->
+  <main class="section-normal">
+    <div class="container">
+      <div class="row g-5">
+        <!-- Form Panel -->
+        <div class="col-lg-7" data-aos="fade-right">
+          <div class="card-custom p-4">
+            <h3 class="mb-4">Send Feedback</h3>
+            
+            <div id="contactAlert" class="alert alert-success d-none" role="alert">
+              Thank you! Your message has been sent successfully. We will get back to you shortly.
+            </div>
+
+            <form id="contactForm" novalidate>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="contactName" class="form-label">Full Name</label>
+                  <input type="text" class="form-control" id="contactName" placeholder="Your Name" required>
+                  <div class="invalid-feedback">Please enter your name.</div>
+                </div>
+                <div class="col-md-6">
+                  <label for="contactEmail" class="form-label">Email Address</label>
+                  <input type="email" class="form-control" id="contactEmail" placeholder="yourname@university.edu" required>
+                  <div class="invalid-feedback">Please enter a valid email address.</div>
+                </div>
+                <div class="col-12">
+                  <label for="contactSubject" class="form-label">Subject</label>
+                  <select class="form-select" id="contactSubject" required>
+                    <option value="" selected disabled>Choose a subject...</option>
+                    <option value="math">Mathematical / Equation issue</option>
+                    <option value="ui">Bug / Interface issue</option>
+                    <option value="feature">Feature Request</option>
+                    <option value="other">General Feedback / Inquiries</option>
+                  </select>
+                  <div class="invalid-feedback">Please select a subject.</div>
+                </div>
+                <div class="col-12">
+                  <label for="contactMessage" class="form-label">Message</label>
+                  <textarea class="form-control" id="contactMessage" rows="5" placeholder="Write your message here..." required></textarea>
+                  <div class="invalid-feedback">Please enter your message.</div>
+                </div>
+                <div class="col-12 mt-4">
+                  <button type="submit" class="btn btn-primary w-100 py-2">Submit Message</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Info Panel -->
+        <div class="col-lg-5" data-aos="fade-left">
+          <div class="card-custom p-4 mb-4">
+            <h4>Support Hours</h4>
+            <p class="text-muted mb-0">Our university academic staff and moderators review reports weekly. Feel free to contact us with technical suggestions or bug reports.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer-section mt-5 no-print">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6">
+          <a class="footer-logo" href="index.html">
+            <i class="bi bi-calculator"></i> Numerical Integration
+          </a>
+          <p class="text-white-50">A premium educational platform for visualizing and solving numerical integration problems step-by-step.</p>
+        </div>
+        <div class="col-lg-2 col-md-6">
+          <h5 class="text-white fw-bold mb-3">Methods</h5>
+          <ul class="list-unstyled">
+            <li><a href="trapezoidal.html" class="footer-link">Trapezoidal Rule</a></li>
+            <li><a href="simpson13.html" class="footer-link">Simpson's 1/3</a></li>
+            <li><a href="simpson38.html" class="footer-link">Simpson's 3/8</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <h5 class="text-white fw-bold mb-3">Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="index.html" class="footer-link">Home</a></li>
+            <li><a href="about.html" class="footer-link">About Numerical Integration</a></li>
+            <li><a href="contact.html" class="footer-link">Contact Support</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <h5 class="text-white fw-bold mb-3">Contact Info</h5>
+          <p class="text-white-50 mb-1"><i class="bi bi-envelope-fill me-2"></i> info@numerical-integration.edu</p>
+          <p class="text-white-50"><i class="bi bi-geo-alt-fill me-2"></i> CSE Department, University of Barishal</p>
+        </div>
+      </div>
+      <hr class="my-4 border-light opacity-25">
+      <p class="text-center text-white-50 mb-0">&copy; 2026 Numerical Integration Platform. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <button id="backToTop" class="back-to-top" aria-label="Back to top">
+    <i class="bi bi-arrow-up-short fs-4"></i>
+  </button>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script type="module" src="/js/main.js"></script>
+  <script>
+    // Handle form submit simulation
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const form = e.target;
+      if (form.checkValidity()) {
+        form.classList.remove('was-validated');
+        document.getElementById('contactAlert').classList.remove('d-none');
+        form.reset();
+        window.scrollTo({ top: 150, behavior: 'smooth' });
+        setTimeout(() => {
+          document.getElementById('contactAlert').classList.add('d-none');
+        }, 5000);
+      } else {
+        form.classList.add('was-validated');
+      }
+    });
+  </script>
+</body>
+</html>

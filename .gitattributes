@@ -1,0 +1,27 @@
+# Set default behavior to automatically normalize line endings for text files
+* text=auto
+
+# Force LF line endings for specific configuration and shell script files (important for Linux runners/CI)
+*.sh text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+.github/workflows/*.yml text eol=lf
+
+# Ensure JS, HTML, CSS, JSON, and SVG files use auto-normalization
+*.html text
+*.css text
+*.js text
+*.json text
+*.svg text
+
+# Declare binary files (these should not have their line endings modified by Git)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary

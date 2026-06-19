@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Numerical Integration Solver & Learning Platform</title>
+  <!-- Meta tags for SEO -->
+  <meta name="description" content="An interactive educational platform to learn and solve numerical integration problems step-by-step using Trapezoidal, Simpson's 1/3, and Simpson's 3/8 rules.">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- CSS Stylesheets -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  
+  <!-- MathJax Configuration -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+  </script>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-calculator" viewBox="0 0 16 16">
+          <path d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z"/>
+          <path d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm.5.5v1h7v-1h-7zm0 3.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z"/>
+        </svg>
+        <span>Numerical Integration</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+          <li class="nav-item">
+            <a class="nav-link active" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="trapezoidal.html">Trapezoidal Rule</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="simpson13.html">Simpson's 1/3</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="simpson38.html">Simpson's 3/8</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contact.html">Contact</a>
+          </li>
+          <li class="nav-item ms-lg-2">
+            <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle dark mode">
+              <i class="bi bi-moon-fill"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6" data-aos="fade-right">
+          <h1 class="hero-title">Numerical Integration Learning Platform</h1>
+          <p class="hero-subtitle">Learn Numerical Integration with interactive visualization, step-by-step calculations, dynamic graphs, and automatic solutions.</p>
+          <div class="d-flex gap-3 flex-wrap">
+            <a href="#theory" class="btn btn-primary btn-lg">Learn Theory</a>
+            <a href="trapezoidal.html" class="btn btn-success btn-lg">Start Solving</a>
+          </div>
+        </div>
+        <div class="col-lg-6 hero-img-container" data-aos="fade-left" data-aos-delay="200">
+          <!-- Premium Math SVG Illustration -->
+          <svg viewBox="0 0 500 350" width="100%" height="320" xmlns="http://www.w3.org/2000/svg">
+            <!-- Grid Lines -->
+            <line x1="50" y1="50" x2="50" y2="300" stroke="#888" stroke-width="2" />
+            <line x1="50" y1="300" x2="450" y2="300" stroke="#888" stroke-width="2" />
+            <path d="M450 300 l-10 -5 v10 z" fill="#888" />
+            <path d="M50 50 l-5 10 h10 z" fill="#888" />
+            
+            <!-- Grid Helpers -->
+            <line x1="120" y1="300" x2="120" y2="50" stroke="#dee2e6" stroke-dasharray="4" stroke-width="1" />
+            <line x1="200" y1="300" x2="200" y2="50" stroke="#dee2e6" stroke-dasharray="4" stroke-width="1" />
+            <line x1="280" y1="300" x2="280" y2="50" stroke="#dee2e6" stroke-dasharray="4" stroke-width="1" />
+            <line x1="360" y1="300" x2="360" y2="50" stroke="#dee2e6" stroke-dasharray="4" stroke-width="1" />
+            
+            <!-- Approximating Trapezoids (Shaded Areas) -->
+            <!-- Trapezoid 1: x = 120 to 200, y = f(120) to f(200) -->
+            <polygon points="120,300 120,220 200,160 200,300" fill="rgba(82, 171, 152, 0.25)" stroke="#52ab98" stroke-width="1.5" />
+            <!-- Trapezoid 2: x = 200 to 280, y = f(200) to f(280) -->
+            <polygon points="200,300 200,160 280,120 280,300" fill="rgba(82, 171, 152, 0.25)" stroke="#52ab98" stroke-width="1.5" />
+            <!-- Trapezoid 3: x = 280 to 360, y = f(280) to f(360) -->
+            <polygon points="280,300 280,120 360,150 360,300" fill="rgba(82, 171, 152, 0.25)" stroke="#52ab98" stroke-width="1.5" />
+            
+            <!-- Continuous Curve f(x) -->
+            <path d="M 80 250 C 120 220, 160 190, 200 160 C 240 130, 280 120, 320 135 C 360 150, 400 210, 430 250" fill="none" stroke="#2b6777" stroke-width="4" />
+            
+            <!-- Nodes -->
+            <circle cx="120" cy="220" r="5" fill="#dc3545" />
+            <circle cx="200" cy="160" r="5" fill="#dc3545" />
+            <circle cx="280" cy="120" r="5" fill="#dc3545" />
+            <circle cx="360" cy="150" r="5" fill="#dc3545" />
+            
+            <!-- Node Labels -->
+            <text x="120" y="320" font-family="Poppins" font-size="12" text-anchor="middle" fill="#222">x₀</text>
+            <text x="200" y="320" font-family="Poppins" font-size="12" text-anchor="middle" fill="#222">x₁</text>
+            <text x="280" y="320" font-family="Poppins" font-size="12" text-anchor="middle" fill="#222">x₂</text>
+            <text x="360" y="320" font-family="Poppins" font-size="12" text-anchor="middle" fill="#222">x₃</text>
+            <text x="240" y="90" font-family="Poppins" font-size="14" font-weight="bold" fill="#2b6777" text-anchor="middle">∫ f(x) dx ≈ Area</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="custom-shape-divider-bottom no-print">
+      <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V0C26.9,8.75,55.05,16.27,84.34,22.38C154.2,37,251.8,69.2,321.39,56.44Z" class="shape-fill"></path>
+      </svg>
+    </div>
+  </header>
+
+  <!-- Features Section -->
+  <section class="section-normal">
+    <div class="container">
+      <h2 class="section-title">Core Approximation Methods</h2>
+      <div class="row g-4">
+        <!-- Trapezoidal Card -->
+        <div class="col-md-4" data-aos="fade-up">
+          <div class="card-custom">
+            <div class="card-custom-body text-center py-4">
+              <div class="mb-3 text-primary">
+                <i class="bi bi-grid-3x2-gap-fill fs-1"></i>
+              </div>
+              <h3 class="h4">Trapezoidal Rule</h3>
+              <p class="text-muted">Approximates the area under a curve using 1st-degree linear interpolations (trapezoids). Works with any number of intervals.</p>
+              <div class="d-flex justify-content-center gap-2">
+                <a href="#trapezoidal-theory" class="btn btn-outline-primary btn-sm">Read Theory</a>
+                <a href="trapezoidal.html" class="btn btn-primary btn-sm">Solve Now</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Simpson's 1/3 Card -->
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="card-custom">
+            <div class="card-custom-body text-center py-4">
+              <div class="mb-3 text-success">
+                <i class="bi bi-graph-up-arrow fs-1"></i>
+              </div>
+              <h3 class="h4">Simpson's 1/3 Rule</h3>
+              <p class="text-muted">Approximates the area using 2nd-degree quadratic curves (parabolas). Offers higher accuracy, but requires an <strong>even</strong> number of subintervals.</p>
+              <div class="d-flex justify-content-center gap-2">
+                <a href="#simpson13-theory" class="btn btn-outline-primary btn-sm">Read Theory</a>
+                <a href="simpson13.html" class="btn btn-primary btn-sm">Solve Now</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Simpson's 3/8 Card -->
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="card-custom">
+            <div class="card-custom-body text-center py-4">
+              <div class="mb-3 text-info">
+                <i class="bi bi-bezier2 fs-1"></i>
+              </div>
+              <h3 class="h4">Simpson's 3/8 Rule</h3>
+              <p class="text-muted">Approximates the area using 3rd-degree cubic segments. Requires the number of subintervals to be a <strong>multiple of 3</strong>.</p>
+              <div class="d-flex justify-content-center gap-2">
+                <a href="#simpson38-theory" class="btn btn-outline-primary btn-sm">Read Theory</a>
+                <a href="simpson38.html" class="btn btn-primary btn-sm">Solve Now</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Platform Features Detail -->
+      <div class="row mt-5 pt-4 g-4 text-center">
+        <div class="col-md-4" data-aos="zoom-in">
+          <div class="p-3">
+            <i class="bi bi-layout-text-window-reverse fs-3 text-primary mb-2 d-block"></i>
+            <h4 class="h5">Step-by-Step Solutions</h4>
+            <p class="text-muted fs-6">Not just answers, but detailed, pedagogical steps including finding step size $h$, computing the points tables, and substituting terms.</p>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+          <div class="p-3">
+            <i class="bi bi-palette-fill fs-3 text-success mb-2 d-block"></i>
+            <h4 class="h5">Interactive Visualizations</h4>
+            <p class="text-muted fs-6">Plotly integration displays the function curve and plots the precise geometric boundaries to visualize the approximation area.</p>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
+          <div class="p-3">
+            <i class="bi bi-journal-bookmark-fill fs-3 text-info mb-2 d-block"></i>
+            <h4 class="h5">Academic Standards</h4>
+            <p class="text-muted fs-6">Formula derivations and layouts modeled directly on university mathematical syllabi and Newton-Cotes formulations.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Theory Section -->
+  <section id="theory" class="section-alt">
+    <div class="container">
+      <h2 class="section-title">Theoretical Foundations</h2>
+      
+      <!-- Tabs for Navigating Theory -->
+      <ul class="nav nav-tabs justify-content-center border-bottom mb-4" id="theoryTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active fw-semibold" id="intro-tab" data-bs-toggle="tab" data-bs-target="#intro" type="button" role="tab" aria-controls="intro" aria-selected="true">Introduction</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link fw-semibold" id="newtoncotes-tab" data-bs-toggle="tab" data-bs-target="#newtoncotes" type="button" role="tab" aria-controls="newtoncotes" aria-selected="false">Newton-Cotes Derivation</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link fw-semibold" id="methods-tab" data-bs-toggle="tab" data-bs-target="#methods" type="button" role="tab" aria-controls="methods" aria-selected="false">Methods & Comparison</button>
+        </li>
+      </ul>
+
+      <div class="tab-content" id="theoryTabContent">
+        
+        <!-- Tab 1: Introduction -->
+        <div class="tab-pane fade show active" id="intro" role="tabpanel" aria-labelledby="intro-tab">
+          <div class="row g-4 mt-2">
+            <div class="col-lg-6" data-aos="fade-right">
+              <div class="card-custom theory-card p-4">
+                <h3>What is Integration?</h3>
+                <p>Integration is the mathematical process used to find the total accumulation of a quantity. Most commonly, it represents the area under a curve on a graph.</p>
+                <h4 class="h5 mt-3">Indefinite Integral</h4>
+                <p>Gives a family of functions plus an integration constant $C$. It has no defined boundaries.</p>
+                <div class="math-display-container">
+                  $$\int f(x) \, dx = F(x) + C$$
+                </div>
+                <h4 class="h5 mt-3">Definite Integral</h4>
+                <p>Gives a specific numerical value. It is evaluated between defined boundaries, from $a$ to $b$.</p>
+                <div class="math-display-container">
+                  $$\int_{a}^{b} f(x) \, dx = [F(x)]_{a}^{b} = F(b) - F(a)$$
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-lg-6" data-aos="fade-left">
+              <div class="card-custom theory-card p-4">
+                <h3>Numerical Integration</h3>
+                <p>Numerical integration is a branch of numerical analysis that provides algorithms for estimating the value of a definite integral when analytical solutions are difficult or impossible to calculate.</p>
+                <p>The area under a curve is approximated by dividing the interval $[a, b]$ into $n$ smaller sections and approximating each section using simpler geometric shapes:</p>
+                <ul>
+                  <li><strong>Rectangles:</strong> 0th-degree polynomial representation</li>
+                  <li><strong>Trapezoids:</strong> 1st-degree polynomial representation</li>
+                  <li><strong>Parabolic segments:</strong> 2nd-degree polynomial representation</li>
+                </ul>
+                <h4 class="h5 mt-3">Why Use Numerical Integration?</h4>
+                <ol>
+                  <li>The function has no analytical closed-form integral (e.g. $e^{x^2}$ or $\frac{\sin x}{x}$).</li>
+                  <li>The function is too complex to integrate analytically.</li>
+                  <li>The data is given in tabular or experimental form (i.e. only discrete coordinates $(x_i, y_i)$ are known, not the overall equation).</li>
+                  <li>Computer-based calculations require numerical approximations.</li>
+                </ol>
+              </div>
+            </div>
+            
+            <div class="col-12 mt-4" data-aos="fade-up">
+              <div class="card-custom p-4">
+                <h3>Comparison: Analytical vs. Numerical Integration</h3>
+                <div class="table-responsive">
+                  <table class="table table-custom">
+                    <thead>
+                      <tr>
+                        <th>Aspect</th>
+                        <th>Analytical Integration</th>
+                        <th>Numerical Integration</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><strong>Precision</strong></td>
+                        <td>Gives the exact value using mathematical formulas</td>
+                        <td>Gives an approximate value using calculations</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Input Requirements</strong></td>
+                        <td>Requires a known, differentiable mathematical function</td>
+                        <td>Works with complex formulas or tabulated discrete coordinates</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Difficulty</strong></td>
+                        <td>Can be extremely difficult or impossible for complicated functions</td>
+                        <td>Uniformly simple, computer-friendly arithmetic steps</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Result Output</strong></td>
+                        <td>Provides symbolic function formulas or exact values</td>
+                        <td>Provides numerical values rounded to required decimals</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: General Newton-Cotes Derivation -->
+        <div class="tab-pane fade" id="newtoncotes" role="tabpanel" aria-labelledby="newtoncotes-tab">
+          <div class="card-custom p-4 mt-2" data-aos="fade-up">
+            <h3>Derivation of the General Newton-Cotes Formula</h3>
+            <p>The main closed-form methods of numerical integration are derived from the <strong>Newton–Cotes Quadrature Formulas</strong>. These approximate the value of an integral by replacing the actual function $f(x)$ with an interpolating polynomial $P_n(x)$ of degree $n$ over equally spaced points.</p>
+            
+            <hr class="my-4">
+            
+            <h4 class="fw-bold">Mathematical Derivation Steps</h4>
+            <p>Let $y = f(x)$ be a function evaluated at $n+1$ equally spaced partition points $x_0, x_1, x_2, \dots, x_n$ where $x_i = x_0 + ih$, and $h$ is the step size:</p>
+            <div class="math-display-container">
+              $$h = \frac{b - a}{n}$$
+            </div>
+            
+            <p>Let's evaluate the definite integral:</p>
+            <div class="math-display-container">
+              $$I = \int_{a}^{b} f(x) \, dx = \int_{x_0}^{x_0 + nh} f(x) \, dx$$
+            </div>
+            
+            <p>We replace $f(x)$ with <strong>Newton's Forward Difference Interpolation Formula</strong>:</p>
+            <div class="math-display-container">
+              $$f(x) \approx y_0 + r \Delta y_0 + \frac{r(r-1)}{2!} \Delta^2 y_0 + \frac{r(r-1)(r-2)}{3!} \Delta^3 y_0 + \dots$$
+            </div>
+            <p>where $x = x_0 + rh$, which gives $dx = h \, dr$.</p>
+            <p>Changing the limits of integration from $x$ to $r$:</p>
+            <ul>
+              <li>If $x = x_0$, then $r = 0$</li>
+              <li>If $x = x_0 + nh$, then $r = n$</li>
+            </ul>
+            
+            <p>Substituting these into the definite integral:</p>
+            <div class="math-display-container">
+              $$I = \int_{0}^{n} \left[ y_0 + r \Delta y_0 + \frac{r(r-1)}{2} \Delta^2 y_0 + \frac{r(r-1)(r-2)}{6} \Delta^3 y_0 + \dots \right] h \, dr$$
+            </div>
+            
+            <p>Integrating this term-by-term with respect to $r$ over the interval $[0, n]$:</p>
+            <div class="math-display-container">
+              $$I = h \left[ r y_0 + \frac{r^2}{2} \Delta y_0 + \left( \frac{r^3}{6} - \frac{r^2}{4} \right) \Delta^2 y_0 + \left( \frac{r^4}{24} - \frac{r^3}{6} + \frac{r^2}{4} \right) \Delta^3 y_0 + \dots \right]_0^n$$
+            </div>
+            
+            <p>Applying the limits $0$ and $n$ and simplifying by factoring out $n$:</p>
+            <div class="math-display-container">
+              $$I = nh \left[ y_0 + \frac{n}{2} \Delta y_0 + \frac{n(2n-3)}{12} \Delta^2 y_0 + \frac{n(n-2)^2}{24} \Delta^3 y_0 + \dots \right]$
+            </div>
+            
+            <p>This is the <strong>General Newton–Cotes Quadrature Formula</strong> (or General Quadrature Formula). By setting $n = 1, 2,$ or $3$, we derive the specific integration rules.</p>
+            
+            <div class="alert alert-info mt-3">
+              <h5>Closed vs. Open Form Formulas</h5>
+              <p class="mb-0">
+                If the integration limits $a$ and $b$ are part of the interpolating point set ($x_0 = a$ and $x_n = b$), the formula is <strong>Closed Form</strong> (e.g. Trapezoidal, Simpson's Rules). If the integration limits lie outside the interpolating points, the formula is <strong>Open Form</strong>.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3: Specific Methods & Comparison -->
+        <div class="tab-pane fade" id="methods" role="tabpanel" aria-labelledby="methods-tab">
+          
+          <!-- Trapezoidal Rule Theory -->
+          <div id="trapezoidal-theory" class="card-custom theory-card p-4 mt-2" data-aos="fade-up">
+            <span class="badge bg-primary float-end">n = 1</span>
+            <h3>1. Trapezoidal Rule (Two-Point Formula)</h3>
+            <p>Derived by setting $n = 1$ in the General Newton-Cotes formula, assuming the curve is a straight line $y = Ax + B$ in each subinterval.</p>
+            
+            <h5 class="fw-bold text-primary">Derivation Detail</h5>
+            <p>For $n = 1$, the general formula is integrated over a single interval $[x_0, x_1]$:</p>
+            <div class="math-display-container">
+              $$\int_{x_0}^{x_1} f(x) \, dx = h \left[ y_0 + \frac{1}{2} \Delta y_0 \right] = h \left[ y_0 + \frac{1}{2} (y_1 - y_0) \right] = \frac{h}{2}(y_0 + y_1)$$
+            </div>
+            <p>Summing across all $n$ subintervals (Composite form):</p>
+            <div class="math-display-container">
+              $$I \approx \frac{h}{2} \left[ (y_0 + y_1) + (y_1 + y_2) + \dots + (y_{n-1} + y_n) \right]$$
+            </div>
+            <div class="math-display-container">
+              $$I \approx \frac{h}{2} \left[ y_0 + y_n + 2(y_1 + y_2 + \dots + y_{n-1}) \right]$$
+            </div>
+            
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <h6 class="fw-bold text-success"><i class="bi bi-plus-circle-fill"></i> Advantages</h6>
+                <ul>
+                  <li>Extremely simple to derive and calculate.</li>
+                  <li>Can be used with <strong>any number of subintervals $n \ge 1$</strong>.</li>
+                </ul>
+              </div>
+              <div class="col-md-6">
+                <h6 class="fw-bold text-danger"><i class="bi bi-dash-circle-fill"></i> Disadvantages</h6>
+                <ul>
+                  <li>Lower accuracy (local error order is $O(h^3)$, global error order is $O(h^2)$).</li>
+                  <li>Rough linear approximations can overshoot/undershoot highly curved functions.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Simpson's 1/3 Rule Theory -->
+          <div id="simpson13-theory" class="card-custom theory-card p-4 mt-4" data-aos="fade-up">
+            <span class="badge bg-success float-end">n = 2</span>
+            <h3>2. Simpson's 1/3 Rule (Three-Point Formula)</h3>
+            <p>Derived by setting $n = 2$ in the General Newton-Cotes formula, replacing the curve in each pair of intervals with a second-degree quadratic parabola.</p>
+            
+            <h5 class="fw-bold text-success">Derivation Detail</h5>
+            <p>Integrating over two adjacent intervals $[x_0, x_2]$ (setting $n=2$):</p>
+            <div class="math-display-container">
+              $$\int_{x_0}^{x_2} f(x) \, dx = 2h \left[ y_0 + \frac{2}{2} \Delta y_0 + \frac{2(4-3)}{12} \Delta^2 y_0 \right] = 2h \left[ y_0 + (y_1 - y_0) + \frac{1}{6} (y_2 - 2y_1 + y_0) \right]$$
+            </div>
+            <div class="math-display-container">
+              $$\int_{x_0}^{x_2} f(x) \, dx = \frac{h}{3} (y_0 + 4y_1 + y_2)$$
+            </div>
+            <p>Extending this to multiple subintervals. Because we require groups of two subintervals, <strong>the total number of subintervals $n$ must be even</strong>.</p>
+            <div class="math-display-container">
+              $$I \approx \frac{h}{3} \left[ y_0 + y_n + 4(y_1 + y_3 + \dots + y_{n-1}) + 2(y_2 + y_4 + \dots + y_{n-2}) \right]$$
+            </div>
+            
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <h6 class="fw-bold text-success"><i class="bi bi-plus-circle-fill"></i> Advantages</h6>
+                <ul>
+                  <li>Highly accurate: local error is $O(h^5)$, global error is $O(h^4)$.</li>
+                  <li>Exact for polynomials up to degree 3.</li>
+                </ul>
+              </div>
+              <div class="col-md-6">
+                <h6 class="fw-bold text-danger"><i class="bi bi-dash-circle-fill"></i> Disadvantages</h6>
+                <ul>
+                  <li>Strict structural constraint: <strong>$n$ must be even</strong>.</li>
+                  <li>Cannot be used directly with odd datasets.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Simpson's 3/8 Rule Theory -->
+          <div id="simpson38-theory" class="card-custom theory-card p-4 mt-4" data-aos="fade-up">
+            <span class="badge bg-info float-end">n = 3</span>
+            <h3>3. Simpson's 3/8 Rule (Four-Point Formula)</h3>
+            <p>Derived by setting $n = 3$ in the General Newton-Cotes formula, replacing the curve in each group of three intervals with a third-degree cubic polynomial.</p>
+            
+            <h5 class="fw-bold text-info">Derivation Detail</h5>
+            <p>Integrating over three adjacent intervals $[x_0, x_3]$ (setting $n=3$):</p>
+            <div class="math-display-container">
+              $$\int_{x_0}^{x_3} f(x) \, dx = \frac{3h}{8} (y_0 + 3y_1 + 3y_2 + y_3)$$
+            </div>
+            <p>For composite applications, we group by intervals of 3, meaning <strong>the total number of subintervals $n$ must be a multiple of 3</strong>.</p>
+            <div class="math-display-container">
+              $$I \approx \frac{3h}{8} \left[ y_0 + y_n + 3(y_1 + y_2 + y_4 + y_5 + \dots + y_{n-1}) + 2(y_3 + y_6 + \dots + y_{n-3}) \right]$$
+            </div>
+            
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <h6 class="fw-bold text-success"><i class="bi bi-plus-circle-fill"></i> Advantages</h6>
+                <ul>
+                  <li>Uses cubic approximations, which model cubic curves exactly.</li>
+                  <li>Very high local error accuracy $O(h^5)$.</li>
+                </ul>
+              </div>
+              <div class="col-md-6">
+                <h6 class="fw-bold text-danger"><i class="bi bi-dash-circle-fill"></i> Disadvantages</h6>
+                <ul>
+                  <li>Strict structural constraint: <strong>$n$ must be a multiple of 3</strong>.</li>
+                  <li>Slightly more complex arithmetic coefficients.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Summary Matrix -->
+          <div class="card-custom p-4 mt-4" data-aos="fade-up">
+            <h3>Comparison Matrix of Methods</h3>
+            <div class="table-responsive">
+              <table class="table table-custom">
+                <thead>
+                  <tr>
+                    <th>Method Name</th>
+                    <th>Degree of Interpolating Polynomial</th>
+                    <th>Number of Intervals ($n$) Required</th>
+                    <th>Formula</th>
+                    <th>Global Error Order</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Trapezoidal Rule</strong></td>
+                    <td>1 (Linear)</td>
+                    <td>Any integer ($n \ge 1$)</td>
+                    <td>$I \approx \frac{h}{2}[(y_0 + y_n) + 2\sum y_{rem}]$</td>
+                    <td>$O(h^2)$</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Simpson's 1/3 Rule</strong></td>
+                    <td>2 (Quadratic)</td>
+                    <td>Must be Even ($n \ge 2$)</td>
+                    <td>$I \approx \frac{h}{3}[(y_0 + y_n) + 4\sum y_{odd} + 2\sum y_{even}]$</td>
+                    <td>$O(h^4)$</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Simpson's 3/8 Rule</strong></td>
+                    <td>3 (Cubic)</td>
+                    <td>Must be Multiple of 3 ($n \ge 3$)</td>
+                    <td>$I \approx \frac{3h}{8}[(y_0 + y_n) + 3\sum y_{\text{not div 3}} + 2\sum y_{\text{div 3}}]$</td>
+                    <td>$O(h^4)$</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer-section">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6">
+          <a class="footer-logo" href="index.html">
+            <i class="bi bi-calculator"></i> Numerical Integration
+          </a>
+          <p class="text-white-50">A premium educational platform for visualizing and solving numerical integration problems step-by-step.</p>
+        </div>
+        <div class="col-lg-2 col-md-6">
+          <h5 class="text-white fw-bold mb-3">Methods</h5>
+          <ul class="list-unstyled">
+            <li><a href="trapezoidal.html" class="footer-link">Trapezoidal Rule</a></li>
+            <li><a href="simpson13.html" class="footer-link">Simpson's 1/3</a></li>
+            <li><a href="simpson38.html" class="footer-link">Simpson's 3/8</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <h5 class="text-white fw-bold mb-3">Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="index.html" class="footer-link">Home</a></li>
+            <li><a href="about.html" class="footer-link">About Numerical Integration</a></li>
+            <li><a href="contact.html" class="footer-link">Contact Support</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <h5 class="text-white fw-bold mb-3">Contact Info</h5>
+          <p class="text-white-50 mb-1"><i class="bi bi-envelope-fill me-2"></i> info@numerical-integration.edu</p>
+          <p class="text-white-50"><i class="bi bi-geo-alt-fill me-2"></i> CSE Department, University of Barishal</p>
+          <div class="mt-3">
+            <a href="#" class="footer-social-icon"><i class="bi bi-github"></i></a>
+            <a href="#" class="footer-social-icon"><i class="bi bi-twitter"></i></a>
+            <a href="#" class="footer-social-icon"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+      <hr class="my-4 border-light opacity-25">
+      <div class="row align-items-center">
+        <div class="col-md-6 text-center text-md-start">
+          <p class="text-white-50 mb-0">&copy; 2026 Numerical Integration Platform. All rights reserved.</p>
+        </div>
+        <div class="col-md-6 text-center text-md-end">
+          <p class="text-white-50 mb-0">Designed for Students, Teachers & Researchers.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top and Scripts -->
+  <button id="backToTop" class="back-to-top" aria-label="Back to top">
+    <i class="bi bi-arrow-up-short fs-4"></i>
+  </button>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script type="module" src="/js/main.js"></script>
+</body>
+</html>

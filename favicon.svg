@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="favicon-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2b6777" />
+      <stop offset="100%" stop-color="#52ab98" />
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="8" fill="url(#favicon-grad)" />
+  <!-- Elegant integration symbol -->
+  <path d="M19,7 C17.5,7 16,8 15.5,10 L15,12 L18,12 L17.5,14 L14.5,14 L12,24 C11.5,26 10.5,27 9,27 C7.5,27 6.5,26 6.5,24.5 C6.5,23.5 7,23 7.5,23 C8,23 8.5,23.5 8.5,24 C8.5,24.5 9,25 9.5,25 C10,25 10.5,24.5 10.8,23.2 L13,14 L11,14 L11.5,12 L13.5,12 L14,10 C14.5,7.5 16,6 18.5,6 C19.5,6 20,6.5 20,7 C20,7.5 19.5,7 19,7 Z" fill="#ffffff" />
+  <!-- Calculator overlay -->
+  <rect x="16" y="15" width="10" height="12" rx="1.5" fill="none" stroke="#ffffff" stroke-width="2" />
+  <line x1="18" y1="18" x2="24" y2="18" stroke="#ffffff" stroke-width="1.5" />
+  <circle cx="19" cy="21" r="0.8" fill="#ffffff" />
+  <circle cx="23" cy="21" r="0.8" fill="#ffffff" />
+  <circle cx="19" cy="24" r="0.8" fill="#ffffff" />
+  <circle cx="23" cy="24" r="0.8" fill="#ffffff" />
+</svg>

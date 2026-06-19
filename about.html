@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - Numerical Integration Solver</title>
+  <meta name="description" content="Learn more about the Numerical Integration Solver project, the math syllabus it covers, and the technical implementation stack.">
+  <!-- CSS Stylesheets -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  
+  <!-- MathJax Configuration -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-calculator" viewBox="0 0 16 16">
+          <path d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z"/>
+          <path d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm.5.5v1h7v-1h-7zm0 3.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z"/>
+        </svg>
+        <span>Numerical Integration</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="trapezoidal.html">Trapezoidal Rule</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="simpson13.html">Simpson's 1/3</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="simpson38.html">Simpson's 3/8</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="about.html">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contact.html">Contact</a>
+          </li>
+          <li class="nav-item ms-lg-2">
+            <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle dark mode">
+              <i class="bi bi-moon-fill"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Banner -->
+  <header class="hero-section">
+    <div class="container text-center" data-aos="fade-down">
+      <h1 class="hero-title mb-2">About Our Platform</h1>
+      <p class="hero-subtitle mb-0">Learn about our mission, educational goals, and technical structure.</p>
+    </div>
+    <div class="custom-shape-divider-bottom no-print">
+      <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V0C26.9,8.75,55.05,16.27,84.34,22.38C154.2,37,251.8,69.2,321.39,56.44Z" class="shape-fill"></path>
+      </svg>
+    </div>
+  </header>
+
+  <!-- About Details -->
+  <main class="section-normal about-page">
+    <div class="container">
+      <div class="row g-5 align-items-center">
+        <div class="col-lg-6" data-aos="fade-right">
+          <h2>Educational Mission</h2>
+          <p>The <strong>Numerical Integration Solver & Learning Platform</strong> was developed to bridge the gap between abstract mathematical derivations and interactive visual applications. Numerical integration forms the core of many engineering designs, scientific computing codes, and statistical modeling tools. Yet, students often struggle to visualize how partitioning intervals affects approximation accuracy.</p>
+          <p>Our platform resolves this by combining:</p>
+          <ul>
+            <li><strong>Pedagogical Explanations:</strong> Detailed step-by-step arithmetic pathways showing how limits, step sizes, and discrete ordinate tables feed directly into composite formulas.</li>
+            <li><strong>Dynamic Shading:</strong> Visualizations mapping out approximating shapes (rectangles, trapezoids, parabolas, and cubics) right under the continuous function trace.</li>
+          </ul>
+        </div>
+        <div class="col-lg-6" data-aos="fade-left">
+          <div class="card-custom p-4">
+            <h3 class="h4">Technical Stack & Libraries</h3>
+            <p class="text-muted">Built with robust, lightweight frontend libraries that ensure speed, accessibility, and clean mathematics display on all modern devices:</p>
+            <div class="d-flex flex-column gap-3">
+              <div class="d-flex align-items-start gap-3">
+                <i class="bi bi-bootstrap-fill text-primary fs-3"></i>
+                <div>
+                  <h5 class="mb-1">Bootstrap 5</h5>
+                  <p class="text-muted mb-0 fs-6">Responsive, fluid grid layouts and UI components matching standard usability design tokens.</p>
+                </div>
+              </div>
+              <div class="d-flex align-items-start gap-3">
+                <i class="bi bi-activity text-success fs-3"></i>
+                <div>
+                  <h5 class="mb-1">Plotly.js</h5>
+                  <p class="text-muted mb-0 fs-6">Interactive, vector-based graphing engine mapping function curves, markers, and filled shapes.</p>
+                </div>
+              </div>
+              <div class="d-flex align-items-start gap-3">
+                <i class="bi bi-braces text-info fs-3"></i>
+                <div>
+                  <h5 class="mb-1">MathJax & Math.js</h5>
+                  <p class="text-muted mb-0 fs-6">MathJax renders premium, LaTeX-formatted math blocks. Math.js parses and evaluates string-based function expressions dynamically.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Academic Background Section -->
+      <div class="row mt-5 pt-4" data-aos="fade-up">
+        <div class="col-12">
+          <div class="card-custom p-4">
+            <h3 class="border-bottom pb-2 mb-3">Academic Context</h3>
+            <p>Calculations on this website follow the standard closed-form Newton-Cotes quadrature formulations. These methods assume that a function $f(x)$ is sampled at $n+1$ points distributed uniformly across $[a, b]$. We support:</p>
+            <div class="row g-4 mt-2">
+              <div class="col-md-4">
+                <div class="p-3 bg-light rounded border dark-card-bg">
+                  <h5 class="text-primary">1. Linear Interpolation</h5>
+                  <p class="text-muted mb-0 fs-6">The Trapezoidal Rule maps straight lines between adjacent coordinates, modeling the area as $n$ individual trapezoids. It is the most robust rule but requires smaller intervals ($h$) for high accuracy.</p>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="p-3 bg-light rounded border dark-card-bg">
+                  <h5 class="text-success">2. Quadratic Interpolation</h5>
+                  <p class="text-muted mb-0 fs-6">Simpson's 1/3 Rule maps quadratic parabolas through groups of three coordinates. It requires $n$ to be an even number, yielding significantly lower error rates for smooth curves.</p>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="p-3 bg-light rounded border dark-card-bg">
+                  <h5 class="text-info">3. Cubic Interpolation</h5>
+                  <p class="text-muted mb-0 fs-6">Simpson's 3/8 Rule maps cubic curves through groups of four coordinates. It requires $n$ to be a multiple of 3 and is ideal for representing higher-order curved fields.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer-section">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6">
+          <a class="footer-logo" href="index.html">
+            <i class="bi bi-calculator"></i> Numerical Integration
+          </a>
+          <p class="text-white-50">A premium educational platform for visualizing and solving numerical integration problems step-by-step.</p>
+        </div>
+        <div class="col-lg-2 col-md-6">
+          <h5 class="text-white fw-bold mb-3">Methods</h5>
+          <ul class="list-unstyled">
+            <li><a href="trapezoidal.html" class="footer-link">Trapezoidal Rule</a></li>
+            <li><a href="simpson13.html" class="footer-link">Simpson's 1/3</a></li>
+            <li><a href="simpson38.html" class="footer-link">Simpson's 3/8</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <h5 class="text-white fw-bold mb-3">Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="index.html" class="footer-link">Home</a></li>
+            <li><a href="about.html" class="footer-link">About Numerical Integration</a></li>
+            <li><a href="contact.html" class="footer-link">Contact Support</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <h5 class="text-white fw-bold mb-3">Contact Info</h5>
+          <p class="text-white-50 mb-1"><i class="bi bi-envelope-fill me-2"></i> info@numerical-integration.edu</p>
+          <p class="text-white-50"><i class="bi bi-geo-alt-fill me-2"></i> CSE Department, University of Barishal</p>
+        </div>
+      </div>
+      <hr class="my-4 border-light opacity-25">
+      <p class="text-center text-white-50 mb-0">&copy; 2026 Numerical Integration Platform. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <button id="backToTop" class="back-to-top" aria-label="Back to top">
+    <i class="bi bi-arrow-up-short fs-4"></i>
+  </button>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script type="module" src="/js/main.js"></script>
+</body>
+</html>

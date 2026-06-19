@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trapezoidal Rule Solver - Numerical Integration</title>
+  <meta name="description"
+    content="Solve definite integrals using the composite Trapezoidal Rule with step-by-step calculations and visual graphs.">
+  <!-- Stylesheets -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <!-- MathJax Configuration -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+</head>
+
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-calculator"
+          viewBox="0 0 16 16">
+          <path
+            d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+          <path
+            d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm.5.5v1h7v-1h-7zm0 3.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z" />
+        </svg>
+        <span>Numerical Integration</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="trapezoidal.html">Trapezoidal Rule</a></li>
+          <li class="nav-item"><a class="nav-link" href="simpson13.html">Simpson's 1/3</a></li>
+          <li class="nav-item"><a class="nav-link" href="simpson38.html">Simpson's 3/8</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item ms-lg-2">
+            <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle dark mode">
+              <i class="bi bi-moon-fill"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Banner -->
+  <header class="hero-section mb-4">
+    <div class="container text-center" data-aos="fade-down">
+      <h1 class="hero-title mb-1" style="font-size: 2.2rem;">Trapezoidal Rule Calculator</h1>
+      <p class="hero-subtitle mb-0">Compute numerical integrations with detailed step-by-step arithmetic and graphs.</p>
+    </div>
+    <div class="custom-shape-divider-bottom no-print">
+      <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path
+          d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V0C26.9,8.75,55.05,16.27,84.34,22.38C154.2,37,251.8,69.2,321.39,56.44Z"
+          class="shape-fill"></path>
+      </svg>
+    </div>
+  </header>
+
+  <!-- Main Calculator Workspace -->
+  <main class="container mb-5">
+    <div class="row g-4">
+
+      <!-- Input Panel (Left Column) -->
+      <div class="col-lg-4 input-panel-col" data-aos="fade-right">
+        <div class="card-custom mb-4">
+          <div class="card-custom-header">
+            <h5 class="mb-0 fw-semibold"><i class="bi bi-sliders me-2"></i>Parameter Setup</h5>
+            <button id="btnLoadExample" class="btn btn-outline-primary btn-sm py-1">Example</button>
+          </div>
+          <div class="card-custom-body">
+
+            <!-- Error alerts container -->
+            <div id="validationAlert" class="alert alert-danger d-none" role="alert"></div>
+
+            <form id="solverForm">
+              <!-- Input Type Selection -->
+              <div class="mb-3">
+                <label class="form-label d-block">Input Type</label>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inputType" id="typeFunction" value="function"
+                    checked>
+                  <label class="form-check-label" for="typeFunction">Mathematical Function</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inputType" id="typeTable" value="table">
+                  <label class="form-check-label" for="typeTable">Tabular Data</label>
+                </div>
+              </div>
+
+              <!-- Function Fields Container -->
+              <div id="functionFields">
+                <div class="mb-3">
+                  <label for="inputFunction" class="form-label">Function $f(x)$</label>
+                  <input type="text" class="form-control" id="inputFunction" value="4*x - 3*x^2"
+                    placeholder="e.g. x^2 + 2*x + 1">
+                  <div class="form-text">Use standard operators (*, /, +, -, ^). Independent variable is $x$.</div>
+                </div>
+                <div class="row g-2 mb-3">
+                  <div class="col-md-6">
+                    <label for="inputA" class="form-label">Lower Limit ($a$)</label>
+                    <input type="number" step="any" class="form-control" id="inputA" value="0">
+                  </div>
+                  <div class="col-md-6">
+                    <label for="inputB" class="form-label">Upper Limit ($b$)</label>
+                    <input type="number" step="any" class="form-control" id="inputB" value="1">
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="inputN" class="form-label">Subintervals ($n$)</label>
+                  <input type="number" min="1" step="1" class="form-control" id="inputN" value="10">
+                  <div class="form-text">Number of subintervals (divisions). $n \ge 1$ for Trapezoidal Rule.</div>
+                </div>
+              </div>
+
+              <!-- Table Fields Container (Hidden by default) -->
+              <div id="tableFields" class="d-none">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <label class="form-label mb-0">Tabular Coordinates</label>
+                  <div class="btn-group btn-group-sm">
+                    <button type="button" id="btnAddRow" class="btn btn-outline-success"><i class="bi bi-plus-lg"></i>
+                      Add Row</button>
+                    <button type="button" id="btnDeleteRow" class="btn btn-outline-danger"><i class="bi bi-dash-lg"></i>
+                      Del Row</button>
+                  </div>
+                </div>
+
+                <div class="dynamic-table-container mb-3">
+                  <table class="table table-sm table-bordered text-center table-editor mb-0">
+                    <thead>
+                      <tr>
+                        <th>$i$</th>
+                        <th>$x_i$</th>
+                        <th>$y_i$</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                      <!-- Default rows populated dynamically -->
+                    </tbody>
+                  </table>
+                </div>
+                <div class="form-text text-muted mb-3">Ensure $x$ coordinates are equally spaced and sorted.</div>
+              </div>
+
+              <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary flex-grow-1"><i
+                    class="bi bi-cpu me-2"></i>Calculate</button>
+                <button type="button" id="btnReset" class="btn btn-outline-secondary"><i
+                    class="bi bi-arrow-counterclockwise"></i></button>
+              </div>
+            </form>
+
+          </div>
+        </div>
+
+
+      </div>
+
+      <!-- Output Panel (Right Column) -->
+      <div class="col-lg-8" data-aos="fade-left">
+        <!-- Welcoming card before calculation is made -->
+        <div id="welcomeOutput" class="card-custom p-5 text-center">
+          <div class="py-5">
+            <i class="bi bi-calculator-fill text-muted" style="font-size: 4rem;"></i>
+            <h3 class="mt-4">Calculate Step-by-Step</h3>
+            <p class="text-muted mx-auto" style="max-width: 500px;">Enter a mathematical function or coordinate table on
+              the left, then click <strong>Calculate</strong> to view coordinates, graphs, derivations, and errors.</p>
+            <button id="btnQuickSolve" class="btn btn-primary mt-2">Solve Default Example</button>
+          </div>
+        </div>
+
+        <!-- Calculation Solution Output (Hidden initially) -->
+        <div id="solutionOutput" class="d-none">
+
+          <!-- Summary Metrics Cards -->
+          <div class="row g-3 mb-4">
+            <div class="col-sm-4">
+              <div class="metric-card">
+                <div class="metric-value" id="valApprox">0.000000</div>
+                <div class="metric-label">Approximate Value</div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="metric-card">
+                <div class="metric-value" id="valTrue">0.000000</div>
+                <div class="metric-label">True / Reference Value</div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="metric-card">
+                <div class="metric-value" id="valError">0.000000</div>
+                <div class="metric-label">Absolute Error</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Problem Statement -->
+          <div class="problem-statement-card">
+            <h4 class="h5 fw-bold mb-2">Problem Statement</h4>
+            <div id="textProblemStatement" class="mb-1"></div>
+            <div class="d-flex justify-content-between text-muted fs-6 mt-3 flex-wrap gap-2">
+              <span id="textKnownValues"></span>
+              <span id="textExecTime"><i class="bi bi-clock me-1"></i>0.0 ms</span>
+            </div>
+          </div>
+
+          <!-- Solver Actions -->
+          <div class="d-flex gap-2 mb-4 justify-content-end no-print">
+            <button id="btnCopyAnswer" class="btn btn-sm btn-outline-primary"><i class="bi bi-clipboard me-1"></i>Copy
+              Result</button>
+            <button id="btnPrint" class="btn btn-sm btn-outline-success"><i class="bi bi-printer me-1"></i>Print
+              Solution / PDF</button>
+          </div>
+
+          <!-- Formula Used -->
+          <div class="card-custom mb-4">
+            <div class="card-custom-header">
+              <h5 class="mb-0 fw-semibold"><i class="bi bi-journal-code me-2"></i>Trapezoidal Rule Formula</h5>
+            </div>
+            <div class="card-custom-body text-center">
+              <p class="text-muted">The definite integral is approximated by modeling the interval as a series of
+                trapezoids:</p>
+              <div class="math-display-container">
+                $$I = \frac{h}{2} \left[ y_0 + y_n + 2\sum_{i=1}^{n-1} y_i \right]$$
+              </div>
+            </div>
+          </div>
+
+          <!-- Calculation Steps -->
+          <div class="card-custom mb-4">
+            <div class="card-custom-header">
+              <h5 class="mb-0 fw-semibold"><i class="bi bi-list-check me-2"></i>Step-by-Step Derivation</h5>
+            </div>
+            <div class="card-custom-body">
+
+              <!-- Step 1 -->
+              <div class="solution-step">
+                <div class="solution-step-number">1</div>
+                <h5 class="fw-bold">Calculate Interval Step Size ($h$)</h5>
+                <p>The width of each subinterval is determined by splitting the range $[a, b]$ into $n$ equal portions:
+                </p>
+                <div id="step1Formula" class="math-display-container"></div>
+              </div>
+
+              <!-- Step 2 & 3 -->
+              <div class="solution-step">
+                <div class="solution-step-number">2</div>
+                <h5 class="fw-bold">Partition Coordinates Table</h5>
+                <p>Divide $[a, b]$ using step size $h$ and evaluate the function $y = f(x)$ at each boundary point:</p>
+                <div class="table-responsive">
+                  <table class="table table-sm table-bordered text-center table-custom">
+                    <thead>
+                      <tr>
+                        <th>$i$</th>
+                        <th>$x_i = a + ih$</th>
+                        <th>$y_i = f(x_i)$</th>
+                        <th>Type</th>
+                      </tr>
+                    </thead>
+                    <tbody id="stepsTableBody"></tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Step 4 -->
+              <div class="solution-step">
+                <div class="solution-step-number">3</div>
+                <h5 class="fw-bold">Substitute Into Formula</h5>
+                <p>Add together the weighted boundary and interior coordinates:</p>
+                <div id="step4Formula" class="math-display-container"></div>
+              </div>
+
+              <!-- Step 5 -->
+              <div class="solution-step mb-0">
+                <div class="solution-step-number">4</div>
+                <h5 class="fw-bold">Final Approximation</h5>
+                <p>Evaluate the expression to find the final integral value:</p>
+                <div id="step5Formula" class="math-display-container"></div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Visual Graph Card -->
+          <div class="card-custom mb-4">
+            <div class="card-custom-header">
+              <h5 class="mb-0 fw-semibold"><i class="bi bi-graph-up me-2"></i>Geometric Visualization</h5>
+            </div>
+            <div class="card-custom-body">
+              <div id="plotlyGraph" class="graph-container"></div>
+              <p class="text-muted mt-3 mb-0 fs-6">The shaded area represents the trapezoidal polygons integrated under
+                the curve. Move the cursor over points to check numerical coordinates, or zoom/pan using the toolbar.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer-section mt-5 no-print">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6">
+          <a class="footer-logo" href="index.html">
+            <i class="bi bi-calculator"></i> Numerical Integration
+          </a>
+          <p class="text-white-50">A premium educational platform for visualizing and solving numerical integration
+            problems step-by-step.</p>
+        </div>
+        <div class="col-lg-2 col-md-6">
+          <h5 class="text-white fw-bold mb-3">Methods</h5>
+          <ul class="list-unstyled">
+            <li><a href="trapezoidal.html" class="footer-link">Trapezoidal Rule</a></li>
+            <li><a href="simpson13.html" class="footer-link">Simpson's 1/3</a></li>
+            <li><a href="simpson38.html" class="footer-link">Simpson's 3/8</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <h5 class="text-white fw-bold mb-3">Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="index.html" class="footer-link">Home</a></li>
+            <li><a href="about.html" class="footer-link">About Numerical Integration</a></li>
+            <li><a href="contact.html" class="footer-link">Contact Support</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <h5 class="text-white fw-bold mb-3">Contact Info</h5>
+          <p class="text-white-50 mb-1"><i class="bi bi-envelope-fill me-2"></i> info@numerical-integration.edu</p>
+          <p class="text-white-50"><i class="bi bi-geo-alt-fill me-2"></i> CSE Department, University of Barishal</p>
+        </div>
+      </div>
+      <hr class="my-4 border-light opacity-25">
+      <p class="text-center text-white-50 mb-0">&copy; 2026 Numerical Integration Platform. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- History Offcanvas Drawer -->
+  <div class="offcanvas offcanvas-end no-print" tabindex="-1" id="offcanvasHistory"
+    aria-labelledby="offcanvasHistoryLabel">
+    <div class="offcanvas-header border-bottom">
+      <h5 class="offcanvas-title fw-bold" id="offcanvasHistoryLabel"><i
+          class="bi bi-clock-history me-2 text-primary"></i>Recent Calculations</h5>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <small class="text-muted">Click any item to load parameters</small>
+        <button id="btnClearHistory" class="btn btn-sm btn-outline-danger py-1">Clear All</button>
+      </div>
+      <div id="historyList"></div>
+    </div>
+  </div>
+
+  <!-- Floating History Button -->
+  <button class="btn btn-primary rounded-circle floating-history-btn no-print" type="button" data-bs-toggle="offcanvas"
+    data-bs-target="#offcanvasHistory" aria-controls="offcanvasHistory" title="Calculation History">
+    <i class="bi bi-clock-history fs-5"></i>
+  </button>
+
+  <button id="backToTop" class="back-to-top no-print" aria-label="Back to top">
+    <i class="bi bi-arrow-up-short fs-4"></i>
+  </button>
+
+  <!-- JavaScript Dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.js"></script>
+  <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <script type="module" src="/js/main.js"></script>
+  <script type="module" src="/js/graph.js"></script>
+  <script type="module" src="/js/trapezoidal.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,18 @@
+{
+  "name": "numerical",
+  "version": "1.0.0",
+  "description": "An interactive, production-quality educational web application designed for students, teachers, and researchers to explore the mathematical theories and calculate step-by-step solutions for numerical integration problems.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "vite": "^8.0.16"
+  }
+}
